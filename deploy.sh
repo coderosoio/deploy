@@ -29,7 +29,7 @@ ls -lah ${bzip_file}
 echo "Uploading Docker images..."
 scp -i ${app_key} ${app}-latest.tar.bz2 docker-compose.yml ${app_user}:/home/core
 
-ssh -i ${app_key} ${app_user} << ENDSSH
+ssh -T -i ${app_key} ${app_user} << ENDSSH
 cd /home/core
 docker rmi -f ${app_image} 2>/dev/null
 docker rmi -f ${nginx_image} 2>/dev/null
