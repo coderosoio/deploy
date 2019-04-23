@@ -4,3 +4,5 @@ docker
 .editorconfig
 .dockerignore
 *.tar.bz2
+.env*
+

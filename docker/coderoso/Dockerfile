@@ -17,11 +17,17 @@ FROM alpine:latest
 WORKDIR /coderoso
 
 COPY --from=builder /coderoso/web/cmd/web/coderoso \
-                    /coderoso/web/static \
-                    /coderoso/web/template \
-                    /coderoso/web/config.yml \
-                    /coderoso/web/config.production.yml \
-                    /coderoso/
+                    /coderoso/coderoso
+COPY --from=builder /coderoso/web/static \
+                    /coderoso/static
+COPY --from=builder /coderoso/web/template \
+                    /coderoso/template
+COPY --from=builder /coderoso/web/config.yml \
+                    /coderoso/config.yml
+COPY --from=builder /coderoso/web/config.production.yml \
+                    /coderoso/config.production.yml
+
+ENV APP_ENV=production
 
 EXPOSE 3000
 

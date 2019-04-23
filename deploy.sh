@@ -31,6 +31,8 @@ scp -i ${app_key} ${app}-latest.tar.bz2 docker-compose.yml ${app_user}:/home/cor
 
 ssh -i ${app_key} ${app_user} << ENDSSH
 cd /home/core
+docker rmi -f ${app_image} 2>/dev/null
+docker rmi -f ${nginx_image} 2>/dev/null
 bunzip2 --stdout ${bzip_file} | docker load
 rm ${bzip_file}
 docker-compose down && docker-compose up -d --force-recreate;

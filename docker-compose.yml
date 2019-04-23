@@ -3,6 +3,7 @@ version: "3"
 services:
   coderoso:
     image: coderoso:latest
+    hostname: coderoso
     container_name: coderoso
     restart: always
     ports:
@@ -10,10 +11,24 @@ services:
 
   web:
     image: nginx:latest
-    container_name: nginx
+    # command: "/bin/sh -c 'while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g \"daemon off;\"'"
+    hostname: web
+    container_name: web
     restart: always
     ports:
       - 80:80
       - 443:443
+    volumes:
+      - ./data/certbot/conf:/etc/letsencrypt
+      - ./data/certbot/www:/var/www/certbot
     depends_on:
       - coderoso
+
+  certbot:
+    image: certbot/certbot
+    hostname: certbot
+    container_name: certbot
+    # entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
+    volumes:
+      - ./data/certbot/conf:/etc/letsencrypt
+      - ./data/certbot/www:/var/www/certbot
