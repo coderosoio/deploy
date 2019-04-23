@@ -1,0 +1,7 @@
+.vscode
+.idea
+.DS_Store
+common
+web
+*.tar.bz2
+config*.yml
