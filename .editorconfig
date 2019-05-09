@@ -13,5 +13,8 @@ max_line_length = 100
 indent_style = tab
 indent_size = 8
 
+[*.html]
+indent_size = 4
+
 [{Makefile,**.mK}]
 indent_style = tab
